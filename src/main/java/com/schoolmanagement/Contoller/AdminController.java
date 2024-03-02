@@ -33,7 +33,13 @@ public class AdminController {
 	@Autowired
 	private StudentServices studentServices;
 
-	@GetMapping("/students-detail")
+	
+	@GetMapping("/user-detail")
+	public List<User> getUsers(){
+		return userService.getUsers();
+	}
+	
+	@GetMapping("/student-detail")
 	public ResponseEntity<List<StudentVO>> getStudentDetails() {
 		List<StudentVO> studentList = this.studentServices.getStudents();
 		if (studentList.size() <= 0) {
