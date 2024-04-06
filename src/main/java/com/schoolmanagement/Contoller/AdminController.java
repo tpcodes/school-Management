@@ -105,20 +105,20 @@ public class AdminController {
 
 	}
 
-	@PostMapping("/create-user")
-	public ResponseEntity<String> createUser(@RequestBody User user) {
-
-		
-		User user1 = userService.createUser(user);
-		if (user1 != null) {
-			return ResponseEntity.status(HttpStatus.OK).body("User is successfully registered!");
-
-		} else {
-			return ResponseEntity.status(HttpStatus.OK).body("User with given email already exist!");
-		}
-		
-		
-	}
+//	@PostMapping("/create-user")
+//	public ResponseEntity<String> createUser(@RequestBody User user) {
+//
+//		
+//		User user1 = userService.createUser(user);
+//		if (user1 != null) {
+//			return ResponseEntity.status(HttpStatus.OK).body("User is successfully registered!");
+//
+//		} else {
+//			return ResponseEntity.status(HttpStatus.OK).body("User with given email already exist!");
+//		}
+//		
+//		
+//	}
 
 	
 	
@@ -292,9 +292,9 @@ public class AdminController {
 	}
 	
 	@GetMapping("/get-stkholder-count-dtls")
-	public List<Map<String, Object>> getStkholderCount() throws ParseException
+	public List<Map<String, Object>> getStkholderCount(@RequestParam Long schId) throws ParseException
 	{
-		return userService.getstakeholderCount();
+		return userService.getstakeholderCount(schId);
 	}
 	
 	@GetMapping("/get-admins-dtl")

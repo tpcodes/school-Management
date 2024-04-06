@@ -37,9 +37,9 @@ public class UserService {
 		return userRepository.save(user);
 	}
 
-	public List<Map<String, Object>> getstakeholderCount() {
+	public List<Map<String, Object>> getstakeholderCount(Long schId) {
 		// TODO Auto-generated method stub
-		return custumdao.getStakeholderCount();
+		return custumdao.getStakeholderCount(schId);
 	}
 
 	public List<User> getAdminDetailsByschId() {

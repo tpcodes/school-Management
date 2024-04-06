@@ -16,7 +16,7 @@ public class CustomDao {
 	private JdbcTemplate jdbcTemplate;
 	
 	
-	public List<Map<String, Object>> getStakeholderCount()
+	public List<Map<String, Object>> getStakeholderCount(Long schId)
 	{
 		String sql = """
 		           select 
@@ -28,11 +28,11 @@ Case when u.role_id=1 then count(u.user_id)
 when u.role_id=2 then count(u.user_id) 
 when u.role_id=3 
 then count(u.user_id) when u.role_id=4 then count(u.user_id) end as count
-from users u  where u.user_sch_id=1 group by u.role_id;
+from users u  where u.user_sch_id=? group by u.role_id;
 		     
 		                 """;
 
-		List<Map<String, Object>> obj=jdbcTemplate.queryForList(sql);
+		List<Map<String, Object>> obj=jdbcTemplate.queryForList(sql,new Object[] {schId});
 		   
 		return obj;
 				   
