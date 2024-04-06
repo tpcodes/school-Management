@@ -1,17 +1,19 @@
 package com.schoolmanagement.entities;
 
-import java.util.Collection;
 import java.util.Date;
 
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
+import jakarta.persistence.PrimaryKeyJoinColumn;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -40,7 +42,18 @@ public class StudentVO {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="STU_ID",nullable=false)
 	private Long stuId;
-	private Long user_id;
+	
+
+	
+	@OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_id", referencedColumnName = "user_id")
+	@JsonProperty(access=JsonProperty.Access.WRITE_ONLY)
+	private User user;
+	
+	private Long roleId;
+	
+//	private Long user_id;
+	
 	@Column(name="STU_SCH_ID")
 	private Long stu_schId;
 	
@@ -51,8 +64,8 @@ public class StudentVO {
 	private String stuLname;
 	@Column(name="STU_EMAIL",nullable=false)
 	private String email;
-	@Column(name="STU_PASS",nullable=false)
-	private String password;
+//	@Column(name="STU_PASS",nullable=false)
+//	private String password;
 	@Column(name="STU_ADD")
 	private String stuAddress;
 //	@Column(name="STU_ADD")

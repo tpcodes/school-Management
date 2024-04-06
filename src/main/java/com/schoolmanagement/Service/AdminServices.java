@@ -8,37 +8,38 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.repositories.StudentRepository;
+import com.repositories.AdminRepository;
+import com.schoolmanagement.entities.AdminVO;
 import com.schoolmanagement.entities.StudentVO;
 
 @Service
-public class StudentServices {
+public class AdminServices {
 	@Autowired
-	private StudentRepository studentRepository;
+	private AdminRepository adminRepository;
 	
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 	
-	public List<StudentVO> getStudents()
+	public List<AdminVO> getAdmins()
 	{
-		return studentRepository.findAll();	
+		return adminRepository.findAll();	
 		
 	}
 	
-	public StudentVO getstudentById(Long stuId) {
+	public AdminVO getadminById(Long adminId) {
 		
-		StudentVO student=null;
+		AdminVO admin=null;
 		try
 		{
-			Optional<StudentVO> result=studentRepository.findById(stuId);
-			student=result.get();
+			Optional<AdminVO> result=adminRepository.findById(adminId);
+			admin=result.get();
 			
 //			student=.orElseThrow(()->new ResourceNotFoundException("Student not found with id " +stuId));
 		}catch(NoSuchElementException e)
 		{
 			
 		}
-		return student;
+		return admin;
 	}
 	
 	
@@ -46,22 +47,22 @@ public class StudentServices {
 //		return studentRepository.findstudentwithend(fname);
 //	}
 	
-	public StudentVO createStudent(StudentVO student)
+	public AdminVO createAdmin(AdminVO admin)
 	{
-		StudentVO st=studentRepository.findByEmail(student.getEmail());
+		AdminVO st=adminRepository.findByEmail(admin.getEmail());
 		if(st!=null)
 		{
 			return null;
 		}
 		else
 		{
-			return studentRepository.save(student);
+			return adminRepository.save(admin);
 		}
 
 	}
 
-	public List<StudentVO> getStudentsDetailsByschId(Long schId) {
+	public List<AdminVO> getAdminDetailsByschId(Long schId) {
 		// TODO Auto-generated method stub
-		return studentRepository.getStudentDetailByschId(schId);
+		return adminRepository.getAdminsDetailByschId(schId);
 	}
 }

@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.schoolmanagement.Service.RefreshTokenService;
+import com.schoolmanagement.Service.StudentServices;
 import com.schoolmanagement.Service.UserService;
 import com.schoolmanagement.config.CustomUserDetails;
 import com.schoolmanagement.entities.RefreshToken;
@@ -39,6 +40,9 @@ public class AuthController {
     @Autowired
 	private UserService userService;
 
+    @Autowired
+	private StudentServices studentServices;
+    
     @Autowired
     private JwtHelper helper;
 
@@ -106,6 +110,8 @@ public class AuthController {
 
 		
 		User user1 = userService.createUser(user);
+		studentServices.createStudent(user.getStudentVO());
+		
 		if (user1 != null) {
 			return ResponseEntity.status(HttpStatus.OK).body("User is successfully registered!");
 
