@@ -22,30 +22,20 @@ import lombok.ToString;
 @NoArgsConstructor
 @ToString
 @Entity
-@Table(name="SCHOOLS")
-public class SchoolVO {
+@Table(name="subjects")
+public class SubjectVO {
 
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="SCH_ID",nullable=false)
-	private long schId;
-	@Column(name="SCH_NAME",nullable=false)
-	private String schName;
-	@Column(name="SCH_REG_NO",nullable=false)
-	private String schRegNo;
-	@Column(name="SCH_EMAIL",nullable=false)
-	private String email;
-
-	@Column(name="SCH_ADD")
-	private String schAddress;
-
-	private String principalName;
-	private String stndrdStart;
-	private String stndrdEnd;
-	private String moto;
-	private String aboutUs;
-	private String logo;
+	@Column(name="sub_id",nullable=false)
+	private long subId;
+	private String subCode;
+	@Column(name="SUB_NAME",nullable=false)
+	private String subName;
+	@Column(name="sub_desc",nullable=false)
+	private String subDesc;
+	
 	
 	private Date crtDate;
 	private Date lstUpdtDate;

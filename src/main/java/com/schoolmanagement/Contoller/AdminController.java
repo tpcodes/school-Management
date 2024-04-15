@@ -21,12 +21,14 @@ import com.schoolmanagement.Service.AdminServices;
 import com.schoolmanagement.Service.SchoolServices;
 import com.schoolmanagement.Service.StaffService;
 import com.schoolmanagement.Service.StudentServices;
+import com.schoolmanagement.Service.SubjectServices;
 import com.schoolmanagement.Service.TeacherService;
 import com.schoolmanagement.Service.UserService;
 import com.schoolmanagement.entities.AdminVO;
 import com.schoolmanagement.entities.SchoolVO;
 import com.schoolmanagement.entities.StaffVO;
 import com.schoolmanagement.entities.StudentVO;
+import com.schoolmanagement.entities.SubjectVO;
 import com.schoolmanagement.entities.TeacherVO;
 import com.schoolmanagement.entities.User;
 
@@ -50,7 +52,9 @@ public class AdminController {
 	private StaffService staffServive;
 	@Autowired
 	private AdminServices adminServices;
-
+	@Autowired
+	private SubjectServices subjectServices;
+	
 	
 	@GetMapping("/user-detail")
 	public List<User> getUsers(){
@@ -289,6 +293,20 @@ public class AdminController {
 			return ResponseEntity.status(HttpStatus.OK).body("School with given email already exist!");
 		}
 
+	}
+	
+	@PostMapping("/create-subject")
+	public ResponseEntity<String> createSubject(@RequestBody SubjectVO subject) {
+		
+		SubjectVO sub = subjectServices.createSubject(subject);
+		
+		if (sub != null) {
+			return ResponseEntity.status(HttpStatus.OK).body("Subject is successfully registered!");
+			
+		} else {
+			return ResponseEntity.status(HttpStatus.OK).body("Subject with given Subject code already exist.");
+		}
+		
 	}
 	
 	@GetMapping("/get-stkholder-count-dtls")

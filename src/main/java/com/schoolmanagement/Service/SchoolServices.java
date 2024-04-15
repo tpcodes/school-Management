@@ -20,10 +20,7 @@ public class SchoolServices {
 	
 	@Autowired
 	private SchoolRepository schoolRepository;
-	
-	@Autowired
-	private PasswordEncoder passwordEncoder;
-	
+
 	public List<SchoolVO> getSchools()
 	{
 		return schoolRepository.findAll();	
