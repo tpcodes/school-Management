@@ -36,6 +36,8 @@ public class SchoolVO {
 	private String schRegNo;
 	@Column(name="SCH_EMAIL",nullable=false)
 	private String email;
+	@Column(name="SCH_PASS")
+	private String password;
 
 	@Column(name="SCH_ADD")
 	private String schAddress;
