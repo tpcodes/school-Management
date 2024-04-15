@@ -94,6 +94,17 @@ public class AdminController {
 		}
 
 	}
+	@GetMapping("/subjects")
+	public ResponseEntity<List<SubjectVO>> getSubjects() {
+		
+		List<SubjectVO> subjList = this.subjectServices.getSubjects();
+		if (subjList.size() <= 0) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+		} else {
+			return ResponseEntity.of(Optional.of(subjList));
+		}
+		
+	}
 
 	@GetMapping("/school-id")
 	public ResponseEntity<SchoolVO> getSchoolDetailsByID(@RequestParam long schId) {
