@@ -1,5 +1,7 @@
 package com.schoolmanagement.Contoller;
 
+import java.util.Date;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,10 +18,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.schoolmanagement.Service.AdminServices;
 import com.schoolmanagement.Service.RefreshTokenService;
 import com.schoolmanagement.Service.StudentServices;
 import com.schoolmanagement.Service.UserService;
 import com.schoolmanagement.config.CustomUserDetails;
+import com.schoolmanagement.entities.AdminVO;
 import com.schoolmanagement.entities.RefreshToken;
 import com.schoolmanagement.entities.User;
 import com.schoolmanagement.model.JwtRequest;
@@ -48,6 +52,8 @@ public class AuthController {
 
     @Autowired
     private RefreshTokenService refreshTokenService;
+    @Autowired
+	private AdminServices adminServices;
     
     private Logger logger = LoggerFactory.getLogger(AuthController.class);
 
@@ -120,6 +126,45 @@ public class AuthController {
 		}
 		
 		
+	}
+    
+    @PostMapping("/create-admin")
+	public ResponseEntity<String> createAdmin(@RequestBody AdminVO admin) {
+		User user1=null;
+		if(admin.getUser()!=null)
+		{
+			
+			admin.getUser().setRole("ROLE_ADMIN");
+			admin.getUser().setRoleId(1l);
+			admin.getUser().setActive(1);		
+			admin.getUser().setUserSchId(admin.getAdmin_schId());
+			admin.getUser().setName(admin.getAdminFname()+" "+admin.getAdminLname());
+			admin.setEmail(admin.getUser().getEmail());
+			user1 = userService.createUser(admin.getUser());
+	
+		}
+		admin.setRoleId(2l);
+		admin.setCrtDate(new Date());
+		AdminVO admin1=new AdminVO();
+		admin1=null;
+		if(user1!=null)
+		{
+			admin.getUser().setUserId(user1.getUserId());
+			
+			admin1 = adminServices.createAdmin(admin);
+		}
+		else
+		{
+			return ResponseEntity.status(HttpStatus.OK).body("Admin with given email already exist!");
+		}
+		
+		if (admin1 != null) {
+			return ResponseEntity.status(HttpStatus.OK).body("Admin is successfully registered!");
+
+		} else {
+			return ResponseEntity.status(HttpStatus.OK).body("Admin with given email already exist!");
+		}
+
 	}
 //    @PostMapping("/create-user")
 //    public User createUser(@RequestBody User user)

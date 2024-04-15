@@ -43,7 +43,7 @@ public class SecurityConfig {
 				.requestMatchers("/student/**").hasRole("STUDENT")
 				.requestMatchers("/auth/login").permitAll()
 				.requestMatchers("/auth/refresh").permitAll()
-				.requestMatchers("/auth/create-user").permitAll()
+				.requestMatchers("/auth/create-admin").permitAll()
 				.anyRequest().authenticated())
 				.exceptionHandling(ex -> ex.authenticationEntryPoint(point))
 				.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
